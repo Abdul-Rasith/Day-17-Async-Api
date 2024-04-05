@@ -20,7 +20,8 @@ console.log(data1)
           <p class="card-text">Region:${data1[i].region}</p>
           <p class="card-text">latlng:${data1[i].latlng}</p>
           <p class="card-text">Country Code:${data1[i].cca3}</p>
-          <a href="#" class="btn btn-primary">Click for Weather</a>
+          <button class="btn btn-primary bar" onclick="but()" >Click for Weather</button>
+          <span id="details"></span>
         </div>
       </div>`
       row.append(col)
@@ -30,12 +31,18 @@ console.log(data1)
         var res = data1[i].latlng
         foo(...res)   
         
+        
+        
     }
 }
 
 function foo(lat,lon){
     var final_res = fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=6d32bc5256f5580ac5debc60d60473d1`)
-    .then((data2)=>data2.json()).then((data3)=>console.log(data3.main.temp))
+    .then((data2)=>data2.json()).then((data3)=>but(data3))
+}
+function but(data3){
+console.log(`${data3.weather[0].main} ${data3.weather[0].description}`)
+ document.getElementById("details").value = `${data3.weather[0].main} ${data3.weather[0].description}`
 }
 
 
@@ -48,4 +55,4 @@ function foo(lat,lon){
 
 
  
-// 
+ 
